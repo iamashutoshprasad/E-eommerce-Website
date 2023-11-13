@@ -1,0 +1,12 @@
+*{
+    margin: 0%;
+    padding: 0%;
+}
+.footer{
+    display: flex;
+    font-weight: bolder;
+    font-size: xx-large;
+    justify-content: space-between;
+    background-color: skyblue;
+
+}
