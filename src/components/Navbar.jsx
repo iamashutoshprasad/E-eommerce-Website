@@ -1,22 +1,31 @@
-import React from 'react'
-import '../style/Navbar.css'
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import '../style/Navbar.css';
 
-const Navbar = ({size,setShow}) => {
+const Navbar = ({ size, setShow }) => {
+  const location = useLocation();
+
   return (
     <nav>
-        <div className='nav_box'>
-            <span  className='my_shop'> Home</span>
-            <span  className='my_shop'> Store</span>
-            <span  className='my_shop'> About</span>
-            <div className='cart' onClick={()=> setShow(false)}>
-                <span>
-                    Cart<i className='fas fa-cart-plus'></i>
-                </span>
-                <span>{size}</span>
-            </div>
+      <div className='nav_box'>
+        <Link to='/home' className={location.pathname === '/home' ? 'my_shop active' : 'my_shop'}>
+          Home
+        </Link>
+        <Link to='/' className={location.pathname === '/' ? 'my_shop active' : 'my_shop'}>
+          Store
+        </Link>
+        <Link to='/about' className={location.pathname === '/about' ? 'my_shop active' : 'my_shop'}>
+          About
+        </Link>
+        <div className='cart' onClick={() => setShow(false)}>
+          <span>
+            Cart<i className='fas fa-cart-plus'></i>
+          </span>
+          <span>{size}</span>
         </div>
+      </div>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

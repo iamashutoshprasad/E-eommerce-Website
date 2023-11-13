@@ -5,9 +5,10 @@ import './App.css';
 import Cart from './components/Cart';
 import Section from './components/Section';
 import Footer from './components/Footer';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
 
 const App = () => {
-
   const [cart, setCart] = useState([]);
   const [warning, setWarning] = useState(false);
   const [show, setShow] = useState(true);
@@ -47,19 +48,26 @@ const App = () => {
   }
 
   return (
-    <div>
-      <Navbar size={cart.length} setShow={setShow} />
-      <Section />
-      {
-        show ? <Shop handleClick={handleClick} /> : <Cart cart={cart} setCart={setCart} handleChange={handleChange} />
-      }
+    <Router>
+      <div>
+        <Navbar size={cart.length} setShow={setShow} />
+        <Section />
+        <Routes>
+          <Route
+            path="/"
+            element={show ? <Shop handleClick={handleClick} /> : <Cart cart={cart} setCart={setCart} handleChange={handleChange} />}
+          />
 
-      {
-        warning && <div className='warning'> Item is already in your cart </div>
-      }
-      <button onClick={() => handleClick()} className='cart_button'>See the Cart</button>
-      <Footer />
-    </div>
+        </Routes>
+
+        {warning && <div className='warning'> Item is already in your cart </div>}
+
+        <button onClick={() => handleClick()} className='cart_button'>
+          See the Cart
+        </button>
+        <Footer />
+      </div>
+    </Router>
   )
 }
 
