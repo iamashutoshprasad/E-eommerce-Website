@@ -6,8 +6,7 @@ const Footer = () => {
     <div>
       <div className='footer'>
             <span  >The Generics </span>
-            <span  > Store</span>
-            <span  > About</span>
+  
             </div>
         </div>
   )

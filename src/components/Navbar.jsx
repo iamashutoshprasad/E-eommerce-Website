@@ -8,13 +8,13 @@ const Navbar = ({ size, setShow }) => {
   return (
     <nav>
       <div className='nav_box'>
-        <Link to='/home' className={location.pathname === '/home' ? 'my_shop active' : 'my_shop'}>
+        <Link to='/home' className={location.pathname === '/Pages/Home' ? 'my_shop active' : 'my_shop'}>
           Home
         </Link>
         <Link to='/' className={location.pathname === '/' ? 'my_shop active' : 'my_shop'}>
           Store
         </Link>
-        <Link to='/about' className={location.pathname === '/about' ? 'my_shop active' : 'my_shop'}>
+        <Link to='/about' className={location.pathname === '/Pages/About' ? 'my_shop active' : 'my_shop'}>
           About
         </Link>
         <div className='cart' onClick={() => setShow(false)}>

@@ -6,6 +6,7 @@ import Cart from './components/Cart';
 import Section from './components/Section';
 import Footer from './components/Footer';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './components/Pages/Home';
 
 
 const App = () => {
@@ -57,14 +58,19 @@ const App = () => {
             path="/"
             element={show ? <Shop handleClick={handleClick} /> : <Cart cart={cart} setCart={setCart} handleChange={handleChange} />}
           />
+          <Route
+            path="/home"
+            element={show ? <Home /> : Error}
+          />
 
         </Routes>
 
         {warning && <div className='warning'> Item is already in your cart </div>}
 
-        <button onClick={() => handleClick()} className='cart_button'>
+        {show ? <button onClick={() => handleClick()} className='cart_button'>
           See the Cart
-        </button>
+        </button> : Error
+        }
         <Footer />
       </div>
     </Router>

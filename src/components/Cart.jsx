@@ -13,12 +13,10 @@ const Cart = ({cart,setCart,handleChange}) => {
     const handlePrice = () => {
       let ans = 0;
       cart.map((item) => {
-        ans+= item.amount * item.price;
+         return ans+= item.amount * item.price;
       })
       setPrice(ans)
     }
-    
-
     useEffect(() => {
       handlePrice();
     })
