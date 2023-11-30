@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
-import Navbar from './components/Navbar'
-import Shop from './components/Shop'
-import './App.css';
-import Cart from './components/Cart';
-import Section from './components/Section';
-import Footer from './components/Footer';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './components/Pages/Home';
-
+import React, { useState } from "react";
+import Navbar from "./components/Navbar";
+import Shop from "./components/Shop";
+import "./App.css";
+import Cart from "./components/Cart";
+import Section from "./components/Section";
+import Footer from "./components/Footer";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Home from "./components/Pages/Home";
+import ContactUs from "./components/Pages/ContactUs";
 
 const App = () => {
   const [cart, setCart] = useState([]);
@@ -17,9 +17,8 @@ const App = () => {
   const handleClick = (item) => {
     let isPresent = false;
     cart.forEach((product) => {
-      if (item.id === product.id)
-        isPresent = true;
-    })
+      if (item.id === product.id) isPresent = true;
+    });
 
     if (isPresent) {
       setWarning(true);
@@ -29,13 +28,12 @@ const App = () => {
       return;
     }
     setCart([...cart, item]);
-  }
+  };
 
   const handleChange = (item, d) => {
     let ind = -1;
     cart.forEach((data, index) => {
-      if (data.id === item.id)
-        ind = index;
+      if (data.id === item.id) ind = index;
     });
     const tempArr = cart;
     tempArr[ind].amount += d;
@@ -43,10 +41,9 @@ const App = () => {
 
     if (tempArr[ind].amount === 0) {
       tempArr[ind].amount = 1;
-
     }
-    setCart([...tempArr])
-  }
+    setCart([...tempArr]);
+  };
 
   return (
     <Router>
@@ -56,25 +53,30 @@ const App = () => {
         <Routes>
           <Route
             path="/"
-            element={show ? <Shop handleClick={handleClick} /> : <Cart cart={cart} setCart={setCart} handleChange={handleChange} />}
+            element={
+              show ? (
+                <Shop handleClick={handleClick} />
+              ) : (
+                <Cart
+                  cart={cart}
+                  setCart={setCart}
+                  handleChange={handleChange}
+                />
+              )
+            }
           />
-          <Route
-            path="/home"
-            element={show ? <Home /> : Error}
-          />
-
+          <Route path="/home" element={show ? <Home /> : Error} />
+          <Route path="/contactus" element={show ? <ContactUs /> : Error} />
         </Routes>
 
-        {warning && <div className='warning'> Item is already in your cart </div>}
+        {warning && (
+          <div className="warning"> Item is already in your cart </div>
+        )}
 
-        {show ? <button onClick={() => handleClick()} className='cart_button'>
-          See the Cart
-        </button> : Error
-        }
         <Footer />
       </div>
     </Router>
-  )
-}
+  );
+};
 
-export default App
+export default App;

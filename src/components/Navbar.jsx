@@ -1,25 +1,48 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import '../style/Navbar.css';
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import "../style/Navbar.css";
 
 const Navbar = ({ size, setShow }) => {
   const location = useLocation();
 
   return (
     <nav>
-      <div className='nav_box'>
-        <Link to='/home' className={location.pathname === '/Pages/Home' ? 'my_shop active' : 'my_shop'}>
+      <div className="nav_box">
+        <Link
+          to="/home"
+          className={
+            location.pathname === "/Pages/Home" ? "my_shop active" : "my_shop"
+          }
+        >
           Home
         </Link>
-        <Link to='/' className={location.pathname === '/' ? 'my_shop active' : 'my_shop'}>
+        <Link
+          to="/"
+          className={location.pathname === "/" ? "my_shop active" : "my_shop"}
+        >
           Store
         </Link>
-        <Link to='/about' className={location.pathname === '/Pages/About' ? 'my_shop active' : 'my_shop'}>
+        <Link
+          to="/about"
+          className={
+            location.pathname === "/Pages/About" ? "my_shop active" : "my_shop"
+          }
+        >
           About
         </Link>
-        <div className='cart' onClick={() => setShow(false)}>
+        <Link
+          to="/contactus"
+          className={
+            location.pathname === "/Pages/ContactUs"
+              ? "my_shop active"
+              : "my_shop"
+          }
+        >
+          Contact Us
+        </Link>
+        <div className="cart" onClick={() => setShow(false)}>
           <span>
-            Cart<i className='fas fa-cart-plus'></i>
+            Cart<i className="fas fa-cart-plus"></i>
           </span>
           <span>{size}</span>
         </div>

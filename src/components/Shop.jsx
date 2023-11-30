@@ -8,6 +8,10 @@ const Shop = ({handleClick}) => {
     {list.map((item)=> {
        return <Card item={item} key={item.id} handleClick={handleClick}/>
     })}
+    <button onClick={() => handleClick()} className='cart_button'>
+          See the Cart
+        </button> 
+        
    </section>
   )
 }
