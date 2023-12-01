@@ -40,6 +40,7 @@ const Navbar = ({ size, setShow }) => {
         >
           Contact Us
         </Link>
+
         <div className="cart" onClick={() => setShow(false)}>
           <span>
             Cart<i className="fas fa-cart-plus"></i>

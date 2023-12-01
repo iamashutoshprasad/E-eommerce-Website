@@ -8,6 +8,8 @@ import Footer from "./components/Footer";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./components/Pages/Home";
 import ContactUs from "./components/Pages/ContactUs";
+import Product from "./components/Pages/Product";
+import About from "./components/Pages/About";
 
 const App = () => {
   const [cart, setCart] = useState([]);
@@ -65,8 +67,18 @@ const App = () => {
               )
             }
           />
+          // Assuming you are rendering Product in the App component
+          <Route
+            path="/product/:id/:title/:author/:price/:img/:amount"
+            element={<Product handleClick={handleClick} />}
+          />
+
           <Route path="/home" element={show ? <Home /> : Error} />
           <Route path="/contactus" element={show ? <ContactUs /> : Error} />
+          <Route path="/about" element={show ? <About /> : Error} />
+          <Route path="/cart" element={show ? <Cart /> : Error} />
+
+
         </Routes>
 
         {warning && (
