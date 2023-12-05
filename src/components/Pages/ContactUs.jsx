@@ -42,9 +42,12 @@ function Contact() {
     }
   }; // Add an empty dependency array to ensure this function is memoized correctly
   return (
-    <div>
-      <form onSubmit={submitHandler}>
-        <label>
+    <div className="flex flex-col items-center justify-center">
+      <form
+        onSubmit={submitHandler}
+        className="max-w-full p-4 bg-white rounded-md shadow-md outline-1 mb-4"
+      >
+        <label className="block mb-2 font-bold">
           Name
           <input
             type="text"
@@ -52,9 +55,10 @@ function Contact() {
             name="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            className="w-full px-4 py-2 border rounded-md"
           />
         </label>
-        <label>
+        <label className="block mb-2 font-bold">
           Email
           <input
             type="text"
@@ -62,9 +66,10 @@ function Contact() {
             name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-4 py-2 border rounded-md"
           />
         </label>
-        <label>
+        <label className="block mb-2 font-bold">
           Phone no.
           <input
             type="number"
@@ -72,8 +77,14 @@ function Contact() {
             name="phoneno"
             value={phone}
             onChange={(e) => setPhoneno(e.target.value)}
+            className="w-full px-4 py-2 border rounded-md mb-4"
           />
-          <button type="submit">Submit</button>
+          <button
+            type="submit"
+            className=" w-full  bg-black text-base px-3 py-2 text-white rounded-lg flex-row  hover:bg-slate-700  "
+          >
+            Submit
+          </button>
         </label>
       </form>
     </div>

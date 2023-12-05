@@ -62,7 +62,7 @@ const Navbar = ({ size, setShow, setCart }) => {
 
   return (
     <nav>
-      <div className="nav_box">
+      <div className="nav_box   ">
         <Link
           to="/home"
           className={
@@ -89,7 +89,7 @@ const Navbar = ({ size, setShow, setCart }) => {
           to="/contactus"
           className={
             location.pathname === "/Pages/ContactUs"
-              ? "my_sop active"
+              ? "my_shop active"
               : "my_shop"
           }
         >
@@ -110,7 +110,7 @@ const Navbar = ({ size, setShow, setCart }) => {
 
         <div className="cart" onClick={() => setShow(false)}>
           <span>
-            Cart<i className="fas fa-cart-plus"></i>
+            Cart<i className=" text-sm "></i>
           </span>
           <span>{size}</span>
         </div>

@@ -73,28 +73,50 @@ const AuthForm = () => {
   };
 
   return (
-    <section>
-      <h1>{isLogin ? "Login" : "Sign Up"}</h1>
-      <form onSubmit={submitHandler}>
-        <div>
-          <label htmlFor="email">Your Email</label>
-          <input type="email" id="email" required ref={emailInputRef} />
+    <section className="flex flex-col items-center justify-center ">
+      <h1 className="text-3xl font-bold mb-6">
+        {isLogin ? "Login" : "Sign Up"}
+      </h1>
+      <form
+        onSubmit={submitHandler}
+        className="max-w-full p-4 bg-white rounded-md shadow-md outline-1 mb-4"
+      >
+        <div className="mb-8">
+          <label htmlFor="email" className="block mb-2 font-bold">
+            Your Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            required
+            ref={emailInputRef}
+            className="w-full px-4 py-2 border rounded-md"
+          />
         </div>
         <div>
-          <label htmlFor="password">Your Password</label>
+          <label htmlFor="password" className="block mb-2 font-bold">
+            Your Password
+          </label>
           <input
             type="password"
             id="password"
             required
             ref={passwordInputRef}
+            className="w-full px-4 py-2 border mb-4 rounded-md"
           />
         </div>
-        <div>
+        <div className=" flex flex-col gap-8">
           {!isLoading && (
-            <button>{isLogin ? "Login" : "Create Account"}</button>
+            <button className=" bg-black text-base px-3 py-2 text-white rounded-lg flex-row  hover:bg-slate-700  ">
+              {isLogin ? "Login" : "Create Account"}
+            </button>
           )}
           {isLoading && <p>Sending request...</p>}
-          <button type="button" onClick={switchAuthModeHandler}>
+          <button
+            type="button"
+            onClick={switchAuthModeHandler}
+            className="bg-black text-base px-3 py-2 text-white rounded-lg flex-row  hover:bg-slate-700 "
+          >
             {isLogin ? "Create new account" : "Login with existing account"}
           </button>
         </div>

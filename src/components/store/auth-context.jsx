@@ -11,7 +11,7 @@ const AuthContext = React.createContext({
 export const AuthContextProvider = (props) => {
   const initialToken = localStorage.getItem("token");
   const [token, setToken] = useState(initialToken);
-  const userIsLoggedIn = !!token;
+  const userIsLoggedIn = true;
   console.log("in Auth Context :", userIsLoggedIn);
   console.log(token);
   const loginHandler = (token) => {
@@ -20,21 +20,6 @@ export const AuthContextProvider = (props) => {
     localStorage.setItem("token", token);
   };
 
-  //   const loginHandler = () => {
-  //     // setToken(token);
-  //     // useEffect(
-  //     //   (token) => {
-  //     //     setTimeout(() => {
-  //     //       localStorage.setItem("token", token);
-  //     //       setToken(null);
-  //     //     }, 1000);
-  //     //   },
-  //     //   [loginHandler]
-  //     // );
-  //   };
-  //   useEffect(() => {
-  //     console.log("useEffect", userIsLoggedIn);
-  //   }, [loginHandler]);
   const logoutHandler = () => {
     setToken(null);
   };
