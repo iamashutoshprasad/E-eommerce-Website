@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import firebase from "firebase/app"; // Import firebase
-import "firebase/firestore"; // Import Firestore
+// import firebase from "firebase/app"; // Import firebase
+// import "firebase/firestore"; // Import Firestore
 import "../style/cart.css";
 import AuthContext from "./store/auth-context";
 
@@ -11,7 +11,19 @@ const Cart = ({ cart, setCart, handleChange }) => {
   const handleRemove = (id) => {
     const updatedCart = cart.filter((item) => item.id !== id);
     setCart(updatedCart);
-    updateCartInFirestore(updatedCart);
+    // updateCartInFirestore(updatedCart);
+    fetch(
+      "https://contact-us-b856a-default-rtdb.asia-southeast1.firebasedatabase.app/data/cartdetails.json",
+      {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(id),
+      },
+      console.log(id)
+    );
   };
 
   const handlePrice = () => {
@@ -22,14 +34,14 @@ const Cart = ({ cart, setCart, handleChange }) => {
     setPrice(ans);
   };
 
-  const updateCartInFirestore = (updatedCart) => {
-    const userId = authCtx.token;
+  // const updateCartInFirestore = (updatedCart) => {
+  //   const userId = authCtx.token;
 
-    if (userId) {
-      const db = firebase.firestore();
-      db.collection("carts").doc(userId).set({ cart: updatedCart });
-    }
-  };
+  //   if (userId) {
+  //     const db = firebase.firestore();
+  //     db.collection("carts").doc(userId).set({ cart: updatedCart });
+  //   }
+  // };
 
   useEffect(() => {
     handlePrice();

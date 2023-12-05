@@ -12,8 +12,8 @@ import Product from "./components/Pages/Product";
 import About from "./components/Pages/About";
 import AuthForm from "./components/Login-pages/AuthForm";
 import AuthContext from "./components/store/auth-context";
-import firebase from "firebase/app"; // Import firebase
-import "firebase/firestore"; // Import Firestore
+// import firebase from "firebase/app"; // Import firebase
+// import "firebase/firestore"; // Import Firestore
 
 const App = () => {
   const [cart, setCart] = useState([]);
@@ -23,32 +23,38 @@ const App = () => {
   const isLoggedIn = authCtx.isLoggedIn;
 
   // Retrieve cart data from Firestore on login
-  useEffect(() => {
-    const fetchCartData = async () => {
-      const userId = authCtx.token;
+  // useEffect(() => {
+  //   const fetchCartData = async () => {
+  //     if (isLoggedIn) {
+  //       const response = await fetch(
+  //         "https://contact-us-b856a-default-rtdb.asia-southeast1.firebasedatabase.app/data/cartdetails.json"
+  //       );
+  //       const data = await response.json();
+  //       setCart(data);
+  //     }
+  //   };
 
-      if (userId) {
-        const db = firebase.firestore();
-        const cartDoc = await db.collection("carts").doc(userId).get();
-
-        if (cartDoc.exists) {
-          const userData = cartDoc.data();
-          setCart(userData.cart || []);
-        }
-      }
-    };
-
-    if (isLoggedIn) {
-      fetchCartData();
-    }
-  }, [isLoggedIn, authCtx.token]);
+  //   fetchCartData();
+  // }, [isLoggedIn, authCtx.token]);
 
   const handleClick = (item) => {
     let isPresent = false;
-    console.log(isLoggedIn);
+    // console.log(isLoggedIn);
     cart.forEach((product) => {
       if (item.id === product.id) isPresent = true;
     });
+    fetch(
+      "https://contact-us-b856a-default-rtdb.asia-southeast1.firebasedatabase.app/data/cartdetails.json",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(item),
+      },
+      console.log(item)
+    );
 
     if (isPresent) {
       setWarning(true);
