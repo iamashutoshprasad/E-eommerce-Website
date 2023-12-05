@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Shop from "./components/Shop";
 import "./App.css";
@@ -10,14 +10,42 @@ import Home from "./components/Pages/Home";
 import ContactUs from "./components/Pages/ContactUs";
 import Product from "./components/Pages/Product";
 import About from "./components/Pages/About";
+import AuthForm from "./components/Login-pages/AuthForm";
+import AuthContext from "./components/store/auth-context";
+import firebase from "firebase/app"; // Import firebase
+import "firebase/firestore"; // Import Firestore
 
 const App = () => {
   const [cart, setCart] = useState([]);
   const [warning, setWarning] = useState(false);
   const [show, setShow] = useState(true);
+  const authCtx = useContext(AuthContext);
+  const isLoggedIn = authCtx.isLoggedIn;
+
+  // Retrieve cart data from Firestore on login
+  useEffect(() => {
+    const fetchCartData = async () => {
+      const userId = authCtx.token;
+
+      if (userId) {
+        const db = firebase.firestore();
+        const cartDoc = await db.collection("carts").doc(userId).get();
+
+        if (cartDoc.exists) {
+          const userData = cartDoc.data();
+          setCart(userData.cart || []);
+        }
+      }
+    };
+
+    if (isLoggedIn) {
+      fetchCartData();
+    }
+  }, [isLoggedIn, authCtx.token]);
 
   const handleClick = (item) => {
     let isPresent = false;
+    console.log(isLoggedIn);
     cart.forEach((product) => {
       if (item.id === product.id) isPresent = true;
     });
@@ -45,6 +73,7 @@ const App = () => {
       tempArr[ind].amount = 1;
     }
     setCart([...tempArr]);
+    // localStorage.setItem(item, JSON.stringify([...tempArr]));
   };
 
   return (
@@ -52,33 +81,39 @@ const App = () => {
       <div>
         <Navbar size={cart.length} setShow={setShow} />
         <Section />
+
         <Routes>
-          <Route
-            path="/"
-            element={
-              show ? (
-                <Shop handleClick={handleClick} />
-              ) : (
-                <Cart
-                  cart={cart}
-                  setCart={setCart}
-                  handleChange={handleChange}
-                />
-              )
-            }
-          />
-          // Assuming you are rendering Product in the App component
-          <Route
-            path="/product/:id/:title/:author/:price/:img/:amount"
-            element={<Product handleClick={handleClick} />}
-          />
-
-          <Route path="/home" element={show ? <Home /> : Error} />
-          <Route path="/contactus" element={show ? <ContactUs /> : Error} />
-          <Route path="/about" element={show ? <About /> : Error} />
-          <Route path="/cart" element={show ? <Cart /> : Error} />
-
-
+          {isLoggedIn ? (
+            <>
+              <Route
+                path="/"
+                element={
+                  show ? (
+                    <Shop handleClick={handleClick} />
+                  ) : (
+                    <Cart
+                      cart={cart}
+                      setCart={setCart}
+                      handleChange={handleChange}
+                    />
+                  )
+                }
+              />
+              <Route
+                path="/product/:id/:title/:author/:price/:img/:amount"
+                element={<Product handleClick={handleClick} />}
+              />
+              <Route path="/home" element={show ? <Home /> : Error} />
+              <Route path="/contactus" element={show ? <ContactUs /> : Error} />
+              <Route path="/about" element={show ? <About /> : Error} />
+              <Route path="/cart" element={show ? <Cart /> : Error} />
+            </>
+          ) : (
+            <>
+              <Route path="/" element={show ? <AuthForm /> : Error} />
+              <Route path="*" element={show ? <AuthForm /> : Error} />
+            </>
+          )}
         </Routes>
 
         {warning && (
