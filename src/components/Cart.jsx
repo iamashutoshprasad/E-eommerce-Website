@@ -44,7 +44,9 @@ const Cart = ({ cart, setCart, handleChange }) => {
   // };
 
   useEffect(() => {
-    handlePrice();
+    if (cart) {
+      handlePrice();
+    }
   }, [cart]);
 
   return (
@@ -57,6 +59,7 @@ const Cart = ({ cart, setCart, handleChange }) => {
           </div>
           <div>
             <button
+              className="bg-black text-white rounded    font-black mx-2 px-2"
               onClick={() => {
                 handleChange(item, +1);
               }}
@@ -65,6 +68,7 @@ const Cart = ({ cart, setCart, handleChange }) => {
             </button>
             {item.amount}
             <button
+              className="bg-black text-white rounded  font-black mx-2 px-2"
               onClick={() => {
                 handleChange(item, -1);
               }}
@@ -74,7 +78,12 @@ const Cart = ({ cart, setCart, handleChange }) => {
           </div>
           <div>
             <span>{item.price}</span>
-            <button onClick={() => handleRemove(item.id)}>Remove</button>
+            <button
+              className="bg-black text-white rounded p-2  font-black mx-4"
+              onClick={() => handleRemove(item.id)}
+            >
+              Remove
+            </button>
           </div>
         </div>
       ))}

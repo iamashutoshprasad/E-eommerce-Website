@@ -25,23 +25,25 @@ article {
     align-items: center;
     justify-content: space-between;
     margin-top: 20px;
-    border-bottom: 2px solid orange;
+    border-bottom: 2px solid black;
     padding-bottom: 5px;
 }
+
 
 .total{
     display: flex;
     justify-content: space-between;
 }
 .total span:nth-child(1){
-color: orange;
+color: black;
 font-weight: bold;
 letter-spacing: 2px;
 font-size: 2rem;
 }
 
+
 .total span:nth-child(2){
     font-size: 2rem;
-    color: red;
+    color: black;
     font-weight: bold;
 }

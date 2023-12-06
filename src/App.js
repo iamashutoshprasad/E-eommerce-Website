@@ -43,18 +43,20 @@ const App = () => {
     cart.forEach((product) => {
       if (item.id === product.id) isPresent = true;
     });
-    fetch(
-      "https://contact-us-b856a-default-rtdb.asia-southeast1.firebasedatabase.app/data/cartdetails.json",
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
+    if (!isPresent) {
+      fetch(
+        "https://contact-us-b856a-default-rtdb.asia-southeast1.firebasedatabase.app/data/cartdetails.json",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(item),
         },
-        body: JSON.stringify(item),
-      },
-      console.log(item)
-    );
+        console.log(item)
+      );
+    }
 
     if (isPresent) {
       setWarning(true);

@@ -8,11 +8,6 @@ const Navbar = ({ size, setShow, setCart }) => {
   const isLoggedIn = authCtx.isLoggedIn;
   const location = useLocation();
   const navigator = useNavigate();
-  // const showCartHandler = () => {
-  //   if (isLoggedIn) {
-  //     setShow(false);
-  //   }
-  // };import React, { useContext, useEffect, useState } from "react";
 
   // State to track the timeout ID
   const [logoutTimer, setLogoutTimer] = useState(null);
@@ -28,8 +23,6 @@ const Navbar = ({ size, setShow, setCart }) => {
     const newLogoutTimer = setTimeout(() => {
       // Logout logic here
       authCtx.logout();
-      alert("Auto logout after 5 minutes of login");
-      // setCart();
 
       // Redirect to the login page if needed
       navigator("/");
@@ -43,8 +36,24 @@ const Navbar = ({ size, setShow, setCart }) => {
     if (isLoggedIn) {
       setLoginTime(new Date().getTime());
       resetLogoutTimer();
+
+      // Add event listeners for user activity
+      const activityHandler = () => {
+        setLoginTime(new Date().getTime());
+        resetLogoutTimer();
+      };
+
+      document.addEventListener("mousemove", activityHandler);
+      document.addEventListener("keydown", activityHandler);
+
+      return () => {
+        // Clean up the event listeners when the component unmounts
+        document.removeEventListener("mousemove", activityHandler);
+        document.removeEventListener("keydown", activityHandler);
+      };
     }
   }, [isLoggedIn, navigator]);
+
   const loginHandler = () => {
     if (!isLoggedIn) {
       navigator("/");
@@ -52,17 +61,17 @@ const Navbar = ({ size, setShow, setCart }) => {
       alert("Already Logged In");
     }
   };
+
   const logoutHandler = () => {
     if (isLoggedIn) {
       authCtx.logout();
-      alert("loggeout");
-      // setCart();
+      alert("Logged out");
     }
   };
 
   return (
     <nav>
-      <div className="nav_box   ">
+      <div className="nav_box">
         <Link
           to="/home"
           className={
@@ -104,16 +113,17 @@ const Navbar = ({ size, setShow, setCart }) => {
           }
         >
           {!isLoggedIn && <button onClick={loginHandler}>Login</button>}
-
           {isLoggedIn && <button onClick={logoutHandler}>Logout</button>}
         </Link>
 
-        <div className="cart" onClick={() => setShow(false)}>
-          <span>
-            Cart<i className=" text-sm "></i>
-          </span>
-          <span>{size}</span>
-        </div>
+        <Link to="/cart">
+          <div className="cart" onClick={() => setShow(false)}>
+            <span>
+              Cart<i className=" text-sm "></i>
+            </span>
+            <span>{size}</span>
+          </div>
+        </Link>
       </div>
     </nav>
   );

@@ -6,24 +6,25 @@ const Card = ({ item, handleClick }) => {
   const { id, title, author, price, img, amount } = item;
 
   return (
-    <div className="cards">
-      <div className="image_box">
+    <div className="cards  border-slate-200 mb-2 ">
+      <div className="image_box ">
         <img src={img} alt="image" />
       </div>
-      <div className="details">
+      <div className="details mb-1 ">
         <p>{title}</p>
         <p>{author}</p>
         <p> Price - Rs {price}</p>
 
-        <button onClick={() => handleClick(item)}>Add to Cart</button>
+        <button onClick={() => handleClick(item)} className="mr-2">
+          Add to Cart
+        </button>
 
-        {/* Add Link to navigate to the product page with properly encoded parameters */}
         <Link
           to={`/product/${id}/${encodeURIComponent(title)}/${encodeURIComponent(
             author
           )}/${price}/${encodeURIComponent(img)}/${amount}`}
         >
-          View Details
+          <button className="mr-2">View Details</button>
         </Link>
       </div>
     </div>
