@@ -12,9 +12,13 @@ const AuthForm = () => {
 
   const [isLogin, setIsLogin] = useState(authCtx.isLoggedIn);
   const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState();
+  const [pass, setPass] = useState();
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
+    setEmail("");
+    setPass("");
   };
 
   const submitHandler = (event) => {
@@ -48,23 +52,26 @@ const AuthForm = () => {
       .then((res) => {
         setIsLoading(false);
         if (res.ok) {
-          alert("Login");
-          navigate("/shop");
-
+          if (isLogin) {
+            alert("Login");
+            navigate("/shop");
+          } else {
+            alert("Account created successfully! Please log in.");
+            switchAuthModeHandler(); // Switch to the login form after successful sign-up
+          }
           return res.json();
         } else {
           return res.json().then((data) => {
             let errorMessage = "Authentication failed!";
-            // if (data && data.error && data.error.message) {
-            //   errorMessage = data.error.message;
-            // }
-
             throw new Error(errorMessage);
           });
         }
       })
       .then((data) => {
-        authCtx.login(data.idToken);
+        if (isLogin) {
+          authCtx.login(data.idToken); // Don't auto-login on sign-up
+        }
+
         history("/");
       })
       .catch((err) => {

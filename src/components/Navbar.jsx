@@ -9,7 +9,6 @@ const Navbar = ({ size, setShow, setCart }) => {
   const location = useLocation();
   const navigator = useNavigate();
 
-  // State to track the timeout ID
   const [logoutTimer, setLogoutTimer] = useState(null);
   const [loginTime, setLoginTime] = useState(null);
 
@@ -24,9 +23,8 @@ const Navbar = ({ size, setShow, setCart }) => {
       // Logout logic here
       authCtx.logout();
 
-      // Redirect to the login page if needed
       navigator("/");
-    }, 300000); // 5 minutes in milliseconds
+    }, 300000);
 
     setLogoutTimer(newLogoutTimer);
   };
@@ -62,10 +60,11 @@ const Navbar = ({ size, setShow, setCart }) => {
     }
   };
 
-  const logoutHandler = () => {
+  const logoutHandler = (size) => {
     if (isLoggedIn) {
       authCtx.logout();
       alert("Logged out");
+      size = 0;
     }
   };
 

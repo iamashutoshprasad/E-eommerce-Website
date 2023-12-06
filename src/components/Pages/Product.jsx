@@ -14,7 +14,7 @@ const Product = ({ handleClick }) => {
       {/* Add other product details */}
       <button
         onClick={() => handleClick({ id, title, author, price, img, amount })}
-        className="bg-black text-white rounded-md"
+        className=""
       >
         Add to Cart
       </button>

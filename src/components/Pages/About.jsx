@@ -11,7 +11,7 @@ const About = () => {
         alt="eminem"
         className="w-full md:w-1/2 px-4 mb-4"
       />
-      <p className="w-full md:w-100% px-4 mb-8 p-8 m-8  ">
+      <p className="w-full md:w-100% px-4 mb-8 p-8 m-8     ">
         Marshall Bruce Mathers III (born October 17, 1972), known professionally
         as Eminem (/ˌɛmɪˈnɛm/; often stylized as EMINƎM), is an American rapper
         and actor. He is credited with popularizing hip hop in Middle America

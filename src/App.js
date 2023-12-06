@@ -23,19 +23,26 @@ const App = () => {
   const isLoggedIn = authCtx.isLoggedIn;
 
   // Retrieve cart data from Firestore on login
-  // useEffect(() => {
-  //   const fetchCartData = async () => {
-  //     if (isLoggedIn) {
-  //       const response = await fetch(
-  //         "https://contact-us-b856a-default-rtdb.asia-southeast1.firebasedatabase.app/data/cartdetails.json"
-  //       );
-  //       const data = await response.json();
-  //       setCart(data);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchCartData = async () => {
+      try {
+        const response = await fetch(
+          `https://contact-us-b856a-default-rtdb.asia-southeast1.firebasedatabase.app/data/cartdetails.json`
+        );
+        const data = await response.json();
+        if (data) {
+          const cartItems = Object.values(data);
+          setCart(cartItems);
+        }
+      } catch (error) {
+        console.error("Error fetching cart data:", error);
+      }
+    };
 
-  //   fetchCartData();
-  // }, [isLoggedIn, authCtx.token]);
+    if (isLoggedIn) {
+      fetchCartData();
+    }
+  }, [isLoggedIn]);
 
   const handleClick = (item) => {
     let isPresent = false;
