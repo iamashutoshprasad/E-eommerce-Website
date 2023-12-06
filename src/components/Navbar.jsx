@@ -19,7 +19,7 @@ const Navbar = ({ size, setShow, setCart }) => {
     }
 
     // Set a new timeout for 5 minutes (300,000 milliseconds)
-    const newLogoutTimer = setTimeout(() => {
+    const newLogoutTimer = setTimeout((size) => {
       // Logout logic here
       authCtx.logout();
 
@@ -60,11 +60,12 @@ const Navbar = ({ size, setShow, setCart }) => {
     }
   };
 
-  const logoutHandler = (size) => {
+  const logoutHandler = () => {
     if (isLoggedIn) {
       authCtx.logout();
+      setCart([]);
+
       alert("Logged out");
-      size = 0;
     }
   };
 
@@ -116,9 +117,13 @@ const Navbar = ({ size, setShow, setCart }) => {
         </Link>
 
         <Link to="/cart">
-          <div className="cart" onClick={() => setShow(false)}>
+          <div
+            className="cart  font-light  m-4 "
+            onClick={() => setShow(false)}
+          >
             <span>
-              Cart<i className=" text-sm "></i>
+              Cart
+              <i className=" text-sm  "></i>
             </span>
             <span>{size}</span>
           </div>

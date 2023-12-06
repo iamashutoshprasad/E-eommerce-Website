@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-// import firebase from "firebase/app"; // Import firebase
-// import "firebase/firestore"; // Import Firestore
+
 import "../style/cart.css";
 import AuthContext from "./store/auth-context";
 
@@ -11,7 +10,7 @@ const Cart = ({ cart, setCart, handleChange }) => {
   const handleRemove = (id) => {
     const updatedCart = cart.filter((item) => item.id !== id);
     setCart(updatedCart);
-    // updateCartInFirestore(updatedCart);
+
     fetch(
       "https://contact-us-b856a-default-rtdb.asia-southeast1.firebasedatabase.app/data/cartdetails.json",
       {
@@ -33,15 +32,6 @@ const Cart = ({ cart, setCart, handleChange }) => {
     });
     setPrice(ans);
   };
-
-  // const updateCartInFirestore = (updatedCart) => {
-  //   const userId = authCtx.token;
-
-  //   if (userId) {
-  //     const db = firebase.firestore();
-  //     db.collection("carts").doc(userId).set({ cart: updatedCart });
-  //   }
-  // };
 
   useEffect(() => {
     if (cart) {

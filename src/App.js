@@ -12,12 +12,10 @@ import Product from "./components/Pages/Product";
 import About from "./components/Pages/About";
 import AuthForm from "./components/Login-pages/AuthForm";
 import AuthContext from "./components/store/auth-context";
-// import firebase from "firebase/app"; // Import firebase
-// import "firebase/firestore"; // Import Firestore
 
 const App = () => {
   const [cart, setCart] = useState([]);
-  const [warning, setWarning] = useState(false);
+
   const [show, setShow] = useState(true);
   const authCtx = useContext(AuthContext);
   const isLoggedIn = authCtx.isLoggedIn;
@@ -42,7 +40,7 @@ const App = () => {
     if (isLoggedIn) {
       fetchCartData();
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, setCart]);
 
   const handleClick = (item) => {
     let isPresent = false;
@@ -66,11 +64,7 @@ const App = () => {
     }
 
     if (isPresent) {
-      setWarning(true);
-      setTimeout(() => {
-        setWarning(false);
-      }, 2000);
-      return;
+      alert("item already added to cart");
     }
     setCart([...cart, item]);
   };
@@ -94,46 +88,40 @@ const App = () => {
   return (
     <Router>
       <div>
-        <Navbar size={cart.length} setShow={setShow} />
+        <Navbar size={cart.length} setShow={setShow} setCart={setCart} />
         <Section />
 
         <Routes>
           {isLoggedIn ? (
             <>
+              <Route path="/" element={<Shop handleClick={handleClick} />} />
               <Route
-                path="/"
+                path="/cart"
                 element={
-                  show ? (
-                    <Shop handleClick={handleClick} />
-                  ) : (
-                    <Cart
-                      cart={cart}
-                      setCart={setCart}
-                      handleChange={handleChange}
-                    />
-                  )
+                  <Cart
+                    cart={cart}
+                    setCart={setCart}
+                    handleChange={handleChange}
+                  />
                 }
               />
+
               <Route
                 path="/product/:id/:title/:author/:price/:img/:amount"
                 element={<Product handleClick={handleClick} />}
               />
-              <Route path="/home" element={show ? <Home /> : Error} />
-              <Route path="/contactus" element={show ? <ContactUs /> : Error} />
-              <Route path="/about" element={show ? <About /> : Error} />
-              <Route path="/cart" element={show ? <Cart /> : Error} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/contactus" element={<ContactUs />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/cart" element={<Cart />} />
             </>
           ) : (
             <>
-              <Route path="/" element={show ? <AuthForm /> : Error} />
-              <Route path="*" element={show ? <AuthForm /> : Error} />
+              <Route path="/" element={<AuthForm />} />
+              <Route path="*" element={<AuthForm />} />
             </>
           )}
         </Routes>
-
-        {warning && (
-          <div className="warning"> Item is already in your cart </div>
-        )}
 
         <Footer />
       </div>
